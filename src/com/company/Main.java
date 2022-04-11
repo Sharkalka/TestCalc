@@ -1,8 +1,5 @@
 package com.company;
 
-import not.needed.Argument;
-import not.needed.StringToArguments;
-
 import java.util.Scanner;
 
 public class Main {
