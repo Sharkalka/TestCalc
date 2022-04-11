@@ -1,7 +1,7 @@
 package com.company;
 
 public class Roman {
-    private String[] romanNumbersInput = new String[] {
+    private static final String[] romanNumbersUpTo10 = new String[] {
             "I",
             "II",
             "III",
@@ -14,40 +14,44 @@ public class Roman {
             "X"
     };
     private boolean isRoman;
-
-    public Roman(int a) {
+    private int number;
+    public Roman(String a) {
         for (int i = 0; i < 10; i++) {
-            if (romanNumbersInput[i].equals(a)) {
-                this.isRoman = true;
-            } else {
-                this.isRoman = false;
+            if (romanNumbersUpTo10[i].equals(a)) {
+                number = i + 1;
             }
         }
+        this.isRoman = true;
     }
 
-    public boolean isRoman() {
-        return isRoman;
-    }
-
-    public int getArabicFromRoman(String a) {
-        int arabicNumber;
+    public static boolean isRoman(String a) {
         for (int i = 0; i < 10; i++) {
-            if (romanNumbersInput[i].equals(a)) {
-                arabicNumber = i + 1;
+            if (romanNumbersUpTo10[i].equals(a)) {
+                return true;
             }
         }
-        return arabicNumber;
+        return false;
     }
 
-    public String getResultInRoman(int a) {
-        String roman = new String("");
-        try {
-            if (a < 1) {
-                throw new Exception("throws Exception");
-            }
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+    public int getNumber() {
+        return number;
+    }
+
+    public static String getResultInRoman(int n) throws Exception {
+
+        if( n <= 0) {
+            throw new Exception("throws Exception");
         }
 
+        StringBuilder buf = new StringBuilder();
+
+        final Numeral[] values = Numeral.values();
+        for (int i = values.length - 1; i >= 0; i--) {
+            while (n >= values[i].weight) {
+                buf.append(values[i]);
+                n -= values[i].weight;
+            }
+        }
+        return buf.toString();
     }
 }

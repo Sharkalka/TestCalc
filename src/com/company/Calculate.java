@@ -1,9 +1,9 @@
 package com.company;
 
 public class Calculate {
-    private int a;
-    private int b;
-    private String operator;
+    private final int a;
+    private final int b;
+    private final String operator;
 
     public Calculate(int a, String operator, int b) {
         this.a = a;
@@ -13,16 +13,14 @@ public class Calculate {
 
     public int getResult() {
         switch (operator) {
-           case "+":
-               return a + b;
            case "-":
                return a - b;
            case "*":
                return a * b;
            case "/":
                return a / b;
+            default:
+                return a + b;
         }
-            return 0;
-
     }
 }
