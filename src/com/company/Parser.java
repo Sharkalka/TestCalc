@@ -1,50 +1,27 @@
 package com.company;
 
 public class Parser {
-    private String input;
-    private String a;
-    private String b;
-    private String operator;
-    private String[] arguments;
+    public final Equation equation;
+    private final boolean isArabic;
 
+    /* При создании класса Parser происходит проверка данных на соответствие условиям ввода,
+    иначе выдаёт исключение. Создаёт внутри класс уравнение, доступный всей программе для доступа.
+     */
     public Parser(String input) throws Exception {
-        this.input = input;
-        this.arguments = input.trim().split(" ");
-        this.a = arguments[0];
-        this.b = arguments[2];
-        this.operator = arguments[1];
-    }
-
-    public String getA() {
-        return a;
-    }
-
-    public String getB() {
-        return b;
-    }
-
-    public String getOperator() {
-        return operator;
-    }
-
-    public boolean isValid() {
-        if (arguments.length != 3) {
-            System.out.println("Format" + arguments.length);
-            return false;
+        if (Validator.isValid(input)) {
+            String[] arguments = input.trim().split(" ");
+            this.isArabic = Validator.isArabic(arguments[0]);
+            equation = new Equation(arguments[0], arguments[1], arguments[2], this.isArabic);
+        } else {
+            throw new Exception("throws Exception");
         }
-        switch (operator) {
-            case "+":
-                break;
-            case "-":
-                break;
-            case "*":
-                break;
-            case "/":
-                break;
-            default:
-                System.out.println("Operator unavailable");
-                return false;
-        }
-        return Roman.isRoman(a) && Roman.isRoman(b) || Arabic.isArabic(a) && Arabic.isArabic(b);
+    }
+
+    public boolean isArabic() {
+        return isArabic;
+    }
+
+    public Equation getEquation() {
+        return equation;
     }
 }

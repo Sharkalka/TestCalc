@@ -7,4 +7,4 @@ public enum Numeral {
     Numeral(int weight) {
         this.weight = weight;
     }
-};
+}
